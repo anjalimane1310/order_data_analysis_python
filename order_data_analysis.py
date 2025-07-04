@@ -1,9 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
 
 # ### Python : Mini Project - Orders Data Analysis
 
-# In[2]:
 
 
 #read data from files
@@ -13,30 +10,18 @@ df = pd.read_csv(file_path)
 df.head(20)
 
 
-# In[3]:
-
-
 # handling NULL values
 df['Ship Mode'].unique() #to check distinct values in dataframe
-
-
-# In[4]:
 
 
 df = pd.read_csv(file_path,na_values=['Not Available','unknown'])
 df['Ship Mode'].unique()
 
 
-# In[5]:
-
-
 # rename column names and replace space with underscore
 df.columns = df.columns.str.replace(' ','_')
 df.columns = df.columns.str.lower()
 df.columns
-
-
-# In[6]:
 
 
 # derive new columns discount, sale_price and profit
@@ -46,15 +31,9 @@ df['profit'] = df['sale_price'] - df['cost_price']
 df.head(10)
 
 
-# In[7]:
-
-
 # covert order_date from object data type to date
 df['order_date'] = pd.to_datetime(df['order_date'],format='%Y-%m-%d')
 df.dtypes
-
-
-# In[8]:
 
 
 # drop cost_price, list_price and discount_percent columns
@@ -62,88 +41,10 @@ df.drop(columns = ['list_price','cost_price','discount_percent'], inplace = True
 df
 
 
-# In[9]:
-
-
 import sqlalchemy as sal
 engine = sal.create_engine('DATABASE_URL')
 conn = engine.connect()
 
 
-# In[14]:
-
-
 df.to_sql('df_orders', con=conn, index=False, if_exists = 'append' )
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
 
